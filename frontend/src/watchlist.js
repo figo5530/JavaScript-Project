@@ -41,7 +41,7 @@ class WatchList {
         const liContainer = document.getElementById("container")
         liContainer.children[1].innerHTML = ""
         liContainer.children[0].remove()
-        const returnBtn = HelperTool.createButton("Home")
+        const returnBtn = HelperTool.createBtnForWatchList()
         liContainer.append(returnBtn)
         this.appendMovieForm()
         this.appendList()
@@ -50,12 +50,22 @@ class WatchList {
         for (const e of coll) {
             if (e.innerText === 'Home') {
                 e.addEventListener('click', returnHome)
+            }else if (e.innerText === 'Drop') {
+                e.addEventListener('click', (e) => {
+                    const ele = document.getElementById(`watchlist-${this.id}`).parentElement.parentElement
+                    this.dropWatchList(ele)})
             }
         }
     }
 
-    addEdit() {
-        const tag = document.getElementById(`watchlist-name-${this.id}`)
+    dropWatchList(ele) {
+        fetch(HelperTool.url(`watch_lists/${this.id}`), {
+            method: "DELETE"}).then(resp => resp.json())
+            .then(wl => {
+                ele.remove()
+                WatchList.allList = WatchList.allList.filter(w => w.id !== this.id)
+                returnHome()
+            })
     }
 
     appendMovieForm() {

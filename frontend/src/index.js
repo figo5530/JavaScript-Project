@@ -10,5 +10,4 @@ function returnHome() {
     form = document.getElementById("form")
     form.addEventListener('submit', WatchList.postList)
     WatchList.appendListsForReturn()
-
 }

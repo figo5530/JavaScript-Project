@@ -10,6 +10,28 @@ class HelperTool{
         return div
     }
 
+    static createBtnForWatchList() {
+        const div = document.createElement("div")
+        div.className = "button-group-area mt-40"
+        const home = document.createElement("button")
+        home.innerText = "Home"
+        home.className = "genric-btn success radius"
+        div.append(home)
+        div.className = "button-group-area mt-40"
+        const edit = document.createElement("button")
+        edit.innerText = "Edit"
+        edit.className = "genric-btn success radius"
+        div.append(" ")
+        div.append(edit)
+        div.className = "button-group-area mt-40"
+        const drop = document.createElement("button")
+        drop.innerText = "Drop"
+        drop.className = "genric-btn success radius"
+        div.append(" ")
+        div.append(drop)
+        return div
+    }
+
     static setCss(div, innerDiv, tag) {
         div.className = "section-top-border"
         innerDiv.className = "col-lg-4 col-sm-6 mt-sm-30 typo-sec"
