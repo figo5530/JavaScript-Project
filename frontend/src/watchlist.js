@@ -1,4 +1,5 @@
 class WatchList {
+
     constructor(watchlist) {
         this.name = watchlist.name
         this.id = watchlist.id
@@ -14,9 +15,20 @@ class WatchList {
         WatchList.setCss(div, innerDiv, tag)
         tag.innerText = this.name
         tag.addEventListener('click', this.renderListShowPage.bind(this))
-        Movie.appendMovies(this.movies, innerDiv)
+        this.appendMovies(this.movies, innerDiv)
         div.append(innerDiv)
         liDiv.append(div) 
+    }
+
+    appendMovies(movies, ele) {
+        const ul = document.createElement("ul")
+        ul.className = "unordered-list"
+        ul.id = `watchlist-${this.id}`
+        ele.append(ul)
+        for (const movie of movies) {
+            let newMovie = new Movie(movie)
+            newMovie.appendMovie(ul)
+        }
     }
 
     renderListShowPage() {

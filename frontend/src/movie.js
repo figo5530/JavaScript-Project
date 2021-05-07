@@ -1,4 +1,3 @@
-
 class Movie {
     constructor(movie) {
         this.title = movie.title
@@ -25,22 +24,8 @@ class Movie {
             })
     }
 
-    static appendMovies(movies, ele) {
-        const ul = document.createElement("ul")
-        ul.className = "unordered-list"
-        ul.id = `watchlist-${this.id}`
-        ele.append(ul)
-        for (const movie of movies) {
-            let newMovie = new Movie(movie)
-            newMovie.appendMovie(ul)
-        }
-    }
-
-    
-
     static addMovie(e) {
         e.preventDefault()
-        debugger
         const userInput = e.target.children[0].children[0].value
         const watchListId = e.target.children[0].children[1].id
         const body = {
@@ -58,15 +43,16 @@ class Movie {
             },
             body: JSON.stringify(body)
         }
-        fetch("http://localhost:3000/movies", option).then(resp => resp.json()).then(movie => {
-            let movie = new Movie(movie)
+        fetch("http://localhost:3000/movies", option)
+        .then(resp => resp.json())
+        .then(movie => {
             let ul = document.getElementById(`watchlist-${movie.watch_list_id}`)
-            movie.appendMovie(ul)
+            let newMovie = new Movie(movie)
+            newMovie.appendMovie(ul)
         })
     }
+    
 }
-
-
 
 function createDeleteButton() {
     const div = document.createElement("div")
