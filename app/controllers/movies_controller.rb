@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
     def destroy
         movie = Movie.find_by(id: params[:id])
         movie.destroy
-        render json: {message: "Success!"}
+        render json: {message: "Successfully drop the watchlist!", id: params[:id]}
     end
 
     private

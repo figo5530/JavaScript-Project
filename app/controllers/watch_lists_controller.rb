@@ -8,6 +8,12 @@ class WatchListsController < ApplicationController
         render json: watchlist
     end
 
+    def destroy
+        watchlist = WatchList.find_by(id: params[:id])
+        watchlist.destroy
+        render json: {message: "Success!"}
+    end
+
     private
     def watchlist_params
         params.require(:watchlist).permit(:name)
