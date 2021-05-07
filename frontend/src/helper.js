@@ -15,4 +15,19 @@ class HelperTool{
         innerDiv.className = "col-lg-4 col-sm-6 mt-sm-30 typo-sec"
         tag.className = "mb-20 title_color"
     }
+
+    static postOption(body) {
+        return {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(body)
+        }
+    }
+
+    static url(suffix) {
+        return `http://localhost:3000/${suffix}`
+    }
 }

@@ -38,15 +38,7 @@ class Movie {
             }
         }
         e.target.reset()
-        const option = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(body)
-        }
-        fetch("http://localhost:3000/movies", option)
+        fetch(HelperTool.url("movies"), HelperTool.postOption(body))
         .then(resp => resp.json())
         .then(movie => {
             let ul = document.getElementById(`watchlist-${movie.watch_list_id}`)

@@ -20,6 +20,7 @@ class WatchList {
         innerDiv.append(tag)
         HelperTool.setCss(div, innerDiv, tag)
         tag.innerText = this.name
+        // tag.id = `watchlist-name-${this.id}`
         tag.addEventListener('click', this.renderListShowPage.bind(this))
         this.appendMovies(this.movies, innerDiv)
         div.append(innerDiv)
@@ -44,12 +45,17 @@ class WatchList {
         liContainer.append(returnBtn)
         this.appendMovieForm()
         this.appendList()
+        // this.addEdit()
         const coll = document.getElementsByClassName("genric-btn success radius")
         for (const e of coll) {
             if (e.innerText === 'Home') {
                 e.addEventListener('click', returnHome)
             }
         }
+    }
+
+    addEdit() {
+        const tag = document.getElementById(`watchlist-name-${this.id}`)
     }
 
     appendMovieForm() {
@@ -96,15 +102,9 @@ class WatchList {
         e.preventDefault()
         const userInput = e.target.children[0].children[0].value
         e.target.reset()
-        const option = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({watchlist: {name: userInput}})
-        }
-        fetch("http://localhost:3000/watch_lists", option).then(resp => resp.json()).then(list => {
+        const body = {watchlist: {name: userInput}}
+        fetch(HelperTool.url("watch_lists"), HelperTool.postOption(body))
+        .then(resp => resp.json()).then(list => {
             let watchList = new WatchList(list)
             watchList.appendList()
         })
