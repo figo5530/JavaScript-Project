@@ -3,13 +3,12 @@ class WatchListsController < ApplicationController
         render json: WatchList.all
     end
 
-    
-
     def create
         watchlist = WatchList.create(watchlist_params)
         render json: watchlist
     end
 
+    private
     def watchlist_params
         params.require(:watchlist).permit(:name)
     end
