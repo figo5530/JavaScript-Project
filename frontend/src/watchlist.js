@@ -14,7 +14,7 @@ class WatchList {
         WatchList.setCss(div, innerDiv, tag)
         tag.innerText = this.name
         tag.addEventListener('click', this.renderListShowPage.bind(this))
-        appendMovies(this.movies, innerDiv)
+        Movie.appendMovies(this.movies, innerDiv)
         div.append(innerDiv)
         liDiv.append(div) 
     }
@@ -23,7 +23,7 @@ class WatchList {
         const liContainer = document.getElementById("container")
         liContainer.children[1].innerHTML = ""
         liContainer.children[0].remove()
-        appendMovieForm()
+        Movie.appendMovieForm()
         this.appendList()
     }
 
