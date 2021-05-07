@@ -10,7 +10,7 @@ class Movie {
     appendMovie(ele) {
         const li = document.createElement("li")
         li.innerText = this.title
-        const movieDelete = createDeleteButton()
+        const movieDelete = HelperTool.createButton("Delete")
         movieDelete.addEventListener('click', (e) => {
             this.deleteMovie(li)
         })
@@ -55,14 +55,4 @@ class Movie {
         })
     }
     
-}
-
-function createDeleteButton() {
-    const div = document.createElement("div")
-    div.className = "button-group-area mt-40"
-    const movieDelete = document.createElement("button")
-    movieDelete.innerText = "Delete"
-    movieDelete.className = "genric-btn success radius"
-    div.append(movieDelete)
-    return div
 }

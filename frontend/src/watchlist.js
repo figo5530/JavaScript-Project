@@ -18,7 +18,7 @@ class WatchList {
         const innerDiv = document.createElement("div")
         const tag = document.createElement("h3")
         innerDiv.append(tag)
-        WatchList.setCss(div, innerDiv, tag)
+        HelperTool.setCss(div, innerDiv, tag)
         tag.innerText = this.name
         tag.addEventListener('click', this.renderListShowPage.bind(this))
         this.appendMovies(this.movies, innerDiv)
@@ -40,6 +40,8 @@ class WatchList {
         const liContainer = document.getElementById("container")
         liContainer.children[1].innerHTML = ""
         liContainer.children[0].remove()
+        const returnBtn = HelperTool.createButton("Return")
+        liContainer.append(returnBtn)
         this.appendMovieForm()
         this.appendList()
     }
@@ -94,12 +96,6 @@ class WatchList {
             let watchList = new WatchList(list)
             watchList.appendList()
         })
-    }
-
-    static setCss(div, innerDiv, tag) {
-        div.className = "section-top-border"
-        innerDiv.className = "col-lg-4 col-sm-6 mt-sm-30 typo-sec"
-        tag.className = "mb-20 title_color"
     }
 }
 
