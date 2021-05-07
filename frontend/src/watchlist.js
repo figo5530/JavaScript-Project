@@ -13,6 +13,7 @@ function appendLists(lists) {
         innerDiv.append(tag)
         setCss(div, innerDiv, tag)
         tag.innerText = list.name
+        tag.addEventListener('click', (e) => renderListShowPage(list))
         appendMovies(list.movies, innerDiv)
         div.append(innerDiv)
         liDiv.append(div) 
@@ -45,3 +46,14 @@ function postList(e) {
         appendLists(arr)
     })
 }
+
+function renderListShowPage(list) {
+    const liContainer = document.getElementById("container")
+    liContainer.children[1].innerHTML = ""
+    liContainer.children[0].remove()
+    appendMovieForm()
+    const arr = []
+    arr.push(list)
+    appendLists(arr)
+}
+
