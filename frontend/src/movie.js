@@ -19,7 +19,7 @@ class Movie {
     }
 
     deleteMovie(ele) {
-        fetch(`http://localhost:3000/movies/${this.id}`, {
+        fetch(HelperTool.url(`movies/${this.id}`), {
             method: "DELETE"}).then(resp => resp.json())
             .then(m => {
                 ele.remove()

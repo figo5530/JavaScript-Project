@@ -60,28 +60,13 @@ class WatchList {
 
     appendMovieForm() {
         const container = document.getElementById("container")
-        const movieForm = `
-        <div class="section-top-border">
-            <h3 class="mb-30 title_color">Add Movie</h3>
-            <form id="movieForm">
-                <div class="mt-10">
-                <input type="text" name="title" placeholder="Movie Title" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Movie Title'" required class="single-input">
-                <input type="hidden" id="${this.id}"
-                </div>
-                <div class="mt-10">
-                </div>
-                <div class="button-group-area mt-40">
-                    <input type="submit" class="genric-btn success radius" value="Create">
-                </div>
-            </form>
-        </div>
-        `
+        const movieForm = HelperTool.movieForm(this.id)
         container.innerHTML += movieForm
         document.getElementById("movieForm").addEventListener('submit', Movie.addMovie)
     }
 
     static fetchWatchList() {
-        fetch("http://localhost:3000/watch_lists").then(resp => resp.json())
+        fetch(HelperTool.url("watch_lists")).then(resp => resp.json())
         .then(this.appendLists)
     }
     
