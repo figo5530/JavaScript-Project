@@ -40,10 +40,16 @@ class WatchList {
         const liContainer = document.getElementById("container")
         liContainer.children[1].innerHTML = ""
         liContainer.children[0].remove()
-        const returnBtn = HelperTool.createButton("Return")
+        const returnBtn = HelperTool.createButton("Home")
         liContainer.append(returnBtn)
         this.appendMovieForm()
         this.appendList()
+        const coll = document.getElementsByClassName("genric-btn success radius")
+        for (const e of coll) {
+            if (e.innerText === 'Home') {
+                e.addEventListener('click', returnHome)
+            }
+        }
     }
 
     appendMovieForm() {
@@ -77,6 +83,12 @@ class WatchList {
         for (const list of lists) {
             let watchList = new WatchList(list)
             watchList.appendList()
+        }
+    }
+
+    static appendListsForReturn() {
+        for (const list of WatchList.allList) {
+            list.appendList()
         }
     }
 
