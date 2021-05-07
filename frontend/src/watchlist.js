@@ -23,8 +23,30 @@ class WatchList {
         const liContainer = document.getElementById("container")
         liContainer.children[1].innerHTML = ""
         liContainer.children[0].remove()
-        Movie.appendMovieForm()
+        this.appendMovieForm()
         this.appendList()
+    }
+
+    appendMovieForm() {
+        const container = document.getElementById("container")
+        const movieForm = `
+        <div class="section-top-border">
+            <h3 class="mb-30 title_color">Add Movie</h3>
+            <form id="movieForm">
+                <div class="mt-10">
+                <input type="text" name="title" placeholder="Movie Title" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Movie Title'" required class="single-input">
+                <input type="hidden" id="${this.id}"
+                </div>
+                <div class="mt-10">
+                </div>
+                <div class="button-group-area mt-40">
+                    <input type="submit" class="genric-btn success radius" value="Create">
+                </div>
+            </form>
+        </div>
+        `
+        container.innerHTML += movieForm
+        document.getElementById("movieForm").addEventListener('submit', Movie.addMovie)
     }
 
     static fetchWatchList() {

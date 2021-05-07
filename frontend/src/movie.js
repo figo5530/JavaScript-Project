@@ -28,6 +28,7 @@ class Movie {
     static appendMovies(movies, ele) {
         const ul = document.createElement("ul")
         ul.className = "unordered-list"
+        ul.id = `watchlist-${this.id}`
         ele.append(ul)
         for (const movie of movies) {
             let newMovie = new Movie(movie)
@@ -35,25 +36,33 @@ class Movie {
         }
     }
 
-    static appendMovieForm() {
-        const container = document.getElementById("container")
-        const movieForm = `
-        <div class="section-top-border">
-            <h3 class="mb-30 title_color">Add Movie</h3>
-            <form id="movieForm">
-                <div class="mt-10">
-                    <input type="text" name="title" placeholder="Movie Title" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Movie Title'" required class="single-input">
-                </div>
-                <div class="mt-10">
-                </div>
-                <div class="button-group-area mt-40">
-                    <input type="submit" class="genric-btn success radius" value="Create">
-                </div>
-            </form>
-        </div>
-        `
-        container.innerHTML += movieForm
-        document.getElementById("movieForm").addEventListener('submit', addMovie)
+    
+
+    static addMovie(e) {
+        e.preventDefault()
+        debugger
+        const userInput = e.target.children[0].children[0].value
+        const watchListId = e.target.children[0].children[1].id
+        const body = {
+            movie: {
+                title: userInput,
+                watch_list_id: watchListId
+            }
+        }
+        e.target.reset()
+        const option = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(body)
+        }
+        fetch("http://localhost:3000/movies", option).then(resp => resp.json()).then(movie => {
+            let movie = new Movie(movie)
+            let ul = document.getElementById(`watchlist-${movie.watch_list_id}`)
+            movie.appendMovie(ul)
+        })
     }
 }
 
@@ -67,12 +76,4 @@ function createDeleteButton() {
     movieDelete.className = "genric-btn success radius"
     div.append(movieDelete)
     return div
-}
-
-
-
-
-
-function addMovie(e) {
-    
 }
