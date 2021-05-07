@@ -14,10 +14,9 @@ ActiveRecord::Schema.define(version: 2021_05_06_075934) do
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
-    t.integer "watch_list_id", null: false
+    t.integer "watch_list_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["watch_list_id"], name: "index_movies_on_watch_list_id"
   end
 
   create_table "watch_lists", force: :cascade do |t|
@@ -26,5 +25,4 @@ ActiveRecord::Schema.define(version: 2021_05_06_075934) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "movies", "watch_lists"
 end
