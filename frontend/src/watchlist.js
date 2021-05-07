@@ -1,9 +1,15 @@
 class WatchList {
-
+    static allList = []
     constructor(watchlist) {
         this.name = watchlist.name
         this.id = watchlist.id
-        this.movies = watchlist.movies
+        // this.movies = watchlist.movies
+        watchlist.movies.forEach(m => new Movie(m))
+        WatchList.allList.push(this)
+    }
+
+    get movies() {
+        return Movie.allMovies.filter(m => m.watch_list_id === this.id)
     }
 
     appendList() {
@@ -26,8 +32,7 @@ class WatchList {
         ul.id = `watchlist-${this.id}`
         ele.append(ul)
         for (const movie of movies) {
-            let newMovie = new Movie(movie)
-            newMovie.appendMovie(ul)
+            movie.appendMovie(ul)
         }
     }
 

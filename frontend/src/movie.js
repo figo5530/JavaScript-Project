@@ -1,8 +1,10 @@
 class Movie {
+    static allMovies = []
     constructor(movie) {
         this.title = movie.title
         this.id = movie.id
         this.watch_list_id = movie.watch_list_id
+        Movie.allMovies.push(this)
     }
 
     appendMovie(ele) {
@@ -21,6 +23,7 @@ class Movie {
             method: "DELETE"}).then(resp => resp.json())
             .then(m => {
                 ele.remove()
+                Movie.allMovies = Movie.allMovies.filter(m => m.id !== this.id)
             })
     }
 
