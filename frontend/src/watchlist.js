@@ -138,6 +138,7 @@ class WatchList {
             container.children[0].remove()
             container.children[0].innerHTML = ' '
             const wlist = WatchList.allList.find(e => e.id === wl.id)
+            wlist.name = wl.name
             wlist.appendList()
         })
     }
