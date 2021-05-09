@@ -92,4 +92,26 @@ class HelperTool{
 
         </div>`
     }
+
+    static editWatchListForm(id) {
+        return `
+        <div class="section-top-border">
+        <h3 class="mb-30 title_color">Edit Watch List Name</h3>
+        <form id="form">
+            <div class="mt-10">
+                <input type="text" name="list" placeholder="List Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'List Name'" required class="single-input">
+                <input type="hidden" value="${id}">
+            </div>
+            <div class="mt-10">
+            </div>
+            <div class="button-group-area mt-40">
+                <input type="submit" class="genric-btn success radius" value="Edit">
+            </div>
+        </form>
+        </div>
+        
+        <div id="listDiv">
+
+        </div>`
+    }
 }

@@ -54,6 +54,9 @@ class WatchList {
                 e.addEventListener('click', (e) => {
                     const ele = document.getElementById(`watchlist-${this.id}`).parentElement.parentElement
                     this.dropWatchList(ele)})
+            }else if (e.innerText === 'Edit') {
+                e.addEventListener('click', (e) => {
+                    this.editWatchList()})
             }
         }
     }
@@ -66,6 +69,20 @@ class WatchList {
                 WatchList.allList = WatchList.allList.filter(w => w.id !== this.id)
                 returnHome()
             })
+    }
+
+    editWatchList() {
+        const container = document.getElementById("container")
+        container.innerHTML = HelperTool.editWatchListForm(this.id)
+        document.getElementById('form').addEventListener('submit', WatchList.editList)
+        this.appendList()
+        container.append(HelperTool.createButton('Home'))
+        const coll = document.getElementsByClassName("genric-btn success radius")
+        for (const e of coll) {
+            if (e.innerText === 'Home') {
+                e.addEventListener('click', returnHome)
+            }
+        }
     }
 
     appendMovieForm() {
@@ -102,6 +119,26 @@ class WatchList {
         .then(resp => resp.json()).then(list => {
             let watchList = new WatchList(list)
             watchList.appendList()
+        })
+    }
+
+    static editList(e) {
+        e.preventDefault()
+        const userInput = e.target.children[0].children[0].value
+        const id = e.target.children[0].children[1].value
+        const body = {watchlist: {name: userInput}}
+        fetch(HelperTool.url(`watch_lists/${id}`), {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(body)
+        }).then(resp => resp.json()).then(wl => {
+            container.children[0].remove()
+            container.children[0].innerHTML = ' '
+            const wlist = WatchList.allList.find(e => e.id === wl.id)
+            wlist.appendList()
         })
     }
 }
