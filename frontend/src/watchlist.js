@@ -3,7 +3,6 @@ class WatchList {
     constructor(watchlist) {
         this.name = watchlist.name
         this.id = watchlist.id
-        // this.movies = watchlist.movies
         watchlist.movies.forEach(m => new Movie(m))
         WatchList.allList.push(this)
     }
@@ -20,7 +19,6 @@ class WatchList {
         innerDiv.append(tag)
         HelperTool.setCss(div, innerDiv, tag)
         tag.innerText = this.name
-        // tag.id = `watchlist-name-${this.id}`
         tag.addEventListener('click', this.renderListShowPage.bind(this))
         this.appendMovies(this.movies, innerDiv)
         div.append(innerDiv)
@@ -45,7 +43,6 @@ class WatchList {
         liContainer.append(returnBtn)
         this.appendMovieForm()
         this.appendList()
-        // this.addEdit()
         const coll = document.getElementsByClassName("genric-btn success radius")
         for (const e of coll) {
             if (e.innerText === 'Home') {
@@ -127,14 +124,8 @@ class WatchList {
         const userInput = e.target.children[0].children[0].value
         const id = e.target.children[0].children[1].value
         const body = {watchlist: {name: userInput}}
-        fetch(HelperTool.url(`watch_lists/${id}`), {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(body)
-        }).then(resp => resp.json()).then(wl => {
+        fetch(HelperTool.url(`watch_lists/${id}`), HelperTool.postOption(body, "PATCH"))
+        .then(resp => resp.json()).then(wl => {
             container.children[0].remove()
             container.children[0].innerHTML = ' '
             const wlist = WatchList.allList.find(e => e.id === wl.id)

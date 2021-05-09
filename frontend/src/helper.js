@@ -38,9 +38,9 @@ class HelperTool{
         tag.className = "mb-20 title_color"
     }
 
-    static postOption(body) {
+    static postOption(body, method="POST") {
         return {
-            method: "POST",
+            method: `${method}`,
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
