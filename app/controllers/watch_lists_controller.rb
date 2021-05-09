@@ -8,6 +8,12 @@ class WatchListsController < ApplicationController
         render json: watchlist
     end
 
+    def update
+        watchlist = WatchList.find_by(id: params[:id])
+        watchlist.update(watchlist_params)
+        render json: watchlist
+    end
+    
     def destroy
         watchlist = WatchList.find_by(id: params[:id])
         watchlist.destroy
